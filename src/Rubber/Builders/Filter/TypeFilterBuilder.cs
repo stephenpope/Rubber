@@ -1,15 +1,19 @@
-﻿namespace Rubber.Builders.Filter
+﻿using Newtonsoft.Json.Linq;
+
+namespace Rubber.Builders.Filter
 {
     public class TypeFilterBuilder : IFilterBuilder
     {
+        private readonly string _type;
+
         public TypeFilterBuilder(string type)
         {
-            throw new System.NotImplementedException();
+            _type = type;
         }
 
         public object ToJsonObject()
         {
-            throw new System.NotImplementedException();
+            return new JObject(new JProperty("type", new JObject(new JProperty("value", _type))));
         }
     }
 }
