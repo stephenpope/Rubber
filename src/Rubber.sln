@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubber", "Rubber\Rubber.csproj", "{218A7D7F-F010-43AE-A0D6-352E94DF617F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rubber.Tests", "Rubber.Tests\Rubber.Tests.csproj", "{78917074-61E5-4D3D-BB7E-B28CF260B919}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{218A7D7F-F010-43AE-A0D6-352E94DF617F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{218A7D7F-F010-43AE-A0D6-352E94DF617F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{218A7D7F-F010-43AE-A0D6-352E94DF617F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78917074-61E5-4D3D-BB7E-B28CF260B919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78917074-61E5-4D3D-BB7E-B28CF260B919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78917074-61E5-4D3D-BB7E-B28CF260B919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78917074-61E5-4D3D-BB7E-B28CF260B919}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
