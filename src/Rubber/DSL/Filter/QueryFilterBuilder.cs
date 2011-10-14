@@ -34,7 +34,7 @@ namespace Rubber.DSL.Filter
 
             if (_filterName == null && _cache == false)
             {
-                content["query"] = _queryBuilder.ToJsonObject() as JObject);
+                content["query"] = _queryBuilder.ToJsonObject() as JObject;
             }
             else
             {
