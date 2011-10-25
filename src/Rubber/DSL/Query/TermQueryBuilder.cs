@@ -28,6 +28,12 @@ namespace Rubber.DSL.Query
             _value = value;
         }
 
+        public TermQueryBuilder Boost(float boost)
+        {
+            _boost = boost;
+            return this;
+        }
+
         #region IQueryBuilder Members
 
         public object ToJsonObject()
@@ -36,22 +42,16 @@ namespace Rubber.DSL.Query
 
             if (_boost == null)
             {
-                ((JObject)content.SelectToken("term")).Add(new JProperty(_name, _value));
+                content["term"][_name] = new JValue(_value);
             }
             else
             {
-                ((JObject)content.SelectToken("term")).Add(new JProperty(_name, new JObject(new JProperty("value", _value), new JProperty("boost", _boost))));
+                content["term"][_name] = new JObject(new JProperty("value", _value), new JProperty("boost", _boost));
             }
 
             return content;
         }
 
         #endregion
-
-        public TermQueryBuilder Boost(float boost)
-        {
-            _boost = boost;
-            return this;
-        }
     }
 }

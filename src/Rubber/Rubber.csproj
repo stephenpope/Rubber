@@ -55,6 +55,8 @@
     <Compile Include="DSL\Facet\StatisticalFacetBuilder.cs" />
     <Compile Include="DSL\Facet\StatisticalScriptFacetBuilder.cs" />
     <Compile Include="DSL\Facet\TermsStatsFacetBuilder.cs" />
+    <Compile Include="DSL\NameRegistry.cs" />
+    <Compile Include="DSL\QueryBuilderException.cs" />
     <Compile Include="DSL\Query\TopChildrenQueryBuilder.cs" />
     <Compile Include="DSL\Facet\AbstractFacetBuilder.cs" />
     <Compile Include="DSL\Facet\TermsFacetBuilder.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="DSL\Query\WildcardQueryBuilder.cs" />
     <Compile Include="DSL\Query\WrapperQueryBuilder.cs" />
     <Compile Include="DSL\SearchBuilder.cs" />
+    <Compile Include="DSL\SearchBuilderException.cs" />
     <Compile Include="DSL\SortFactory.cs" />
     <Compile Include="DSL\Sort\FieldSortBuilder.cs" />
     <Compile Include="DSL\Sort\GeoDistanceSortBuilder.cs" />

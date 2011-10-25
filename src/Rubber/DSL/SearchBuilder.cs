@@ -345,11 +345,7 @@ namespace Rubber.DSL
         /// <returns></returns>
         public HighlightBuilder Highlighter()
         {
-            if (_highlightBuilder == null)
-            {
-                _highlightBuilder = new HighlightBuilder();
-            }
-            return _highlightBuilder;
+            return _highlightBuilder ?? (_highlightBuilder = new HighlightBuilder());
         }
 
         /// <summary>

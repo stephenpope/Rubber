@@ -1,19 +1,41 @@
 ﻿using System;
+using Newtonsoft.Json.Linq;
 
 namespace Rubber.DSL.Query
 {
     public class FieldMaskingSpanQueryBuilder : IQueryBuilder
     {
-        public FieldMaskingSpanQueryBuilder(ISpanQueryBuilder query, string field)
+        private const string NAME = NameRegistry.FieldMaskingSpanQueryBuilder;
+        private readonly ISpanQueryBuilder _queryBuilder;
+        private readonly string _field;
+        private float? _boost;
+
+        public FieldMaskingSpanQueryBuilder(ISpanQueryBuilder queryBuilder, string field)
         {
-            throw new NotImplementedException();
+            _queryBuilder = queryBuilder;
+            _field = field;
+        }
+
+        public FieldMaskingSpanQueryBuilder Boost(float boost)
+        {
+            _boost = boost;
+            return this;
         }
 
         #region IQueryBuilder Members
 
         public object ToJsonObject()
         {
-            throw new NotImplementedException();
+            var content = new JObject(new JProperty(NAME), new JObject());
+            content[NAME]["query"] = _queryBuilder.ToJsonObject() as JObject;
+            content[NAME]["field"] = _field;
+
+            if (_boost != null)
+            {
+                content[NAME]["boost"] = _boost;
+            }
+
+            return content;
         }
 
         #endregion

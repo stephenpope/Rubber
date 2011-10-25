@@ -55,11 +55,6 @@ namespace Rubber.DSL.Filter
 
             content["and"]["filters"] = new JArray(_filters.Select(t => t.ToJsonObject()));
 
-            if (_filterName != null)
-            {
-                content["and"]["_name"] = _filterName;
-            }
-
             if (_cache)
             {
                 content["and"]["_cache"] = _cache;
@@ -68,6 +63,11 @@ namespace Rubber.DSL.Filter
             if (_cacheKey != null)
             {
                 content["and"]["_cache_key"] = _cacheKey;
+            }
+
+            if (_filterName != null)
+            {
+                content["and"]["_name"] = _filterName;
             }
 
             return content;

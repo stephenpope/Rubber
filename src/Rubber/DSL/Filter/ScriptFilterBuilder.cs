@@ -38,8 +38,7 @@ namespace Rubber.DSL.Filter
             }
             else
             {
-                _params =
-                    (Dictionary<string, object>) _params.Concat(parameters.Where(kvp => !_params.ContainsKey(kvp.Key)));
+                _params = (Dictionary<string, object>) _params.Concat(parameters.Where(kvp => !_params.ContainsKey(kvp.Key)));
             }
             return this;
         }

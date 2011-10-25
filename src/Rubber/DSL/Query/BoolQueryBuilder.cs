@@ -8,47 +8,13 @@ namespace Rubber.DSL.Query
     /// </summary>
     public class BoolQueryBuilder : IQueryBuilder
     {
+        private const string NAME = NameRegistry.BoolQueryBuilder;
         private readonly List<IQueryBuilder> _mustClauses = new List<IQueryBuilder>();
-
         private readonly List<IQueryBuilder> _mustNotClauses = new List<IQueryBuilder>();
-
         private readonly List<IQueryBuilder> _shouldClauses = new List<IQueryBuilder>();
-
         private float? _boost;
-
         private bool _disableCoord;
-
         private int? _minimumNumberShouldMatch;
-
-        #region IQueryBuilder Members
-
-        public object ToJsonObject()
-        {
-            var content = new JObject(new JProperty("bool", new JObject()));
-
-            content = ArrayToObject("must", _mustClauses, content) as JObject;
-            content = ArrayToObject("must_not", _mustNotClauses, content) as JObject;
-            content = ArrayToObject("should", _shouldClauses, content) as JObject;
-
-            if (_boost != null)
-            {
-                ((JObject) content.SelectToken("bool")).Add(new JProperty("boost", _boost));
-            }
-
-            if (_disableCoord)
-            {
-                ((JObject) content.SelectToken("bool")).Add(new JProperty("disable_coord", _disableCoord));
-            }
-
-            if (_minimumNumberShouldMatch != null)
-            {
-                ((JObject) content.SelectToken("bool")).Add(new JProperty("minimum_number_should_match",_minimumNumberShouldMatch));
-            }
-
-            return content;
-        }
-
-        #endregion
 
         /// <summary>
         /// Adds a query that <b>must</b> appear in the matching documents.
@@ -149,19 +115,49 @@ namespace Rubber.DSL.Query
 
             if (array.Count == 1)
             {
-                ((JObject) content.SelectToken("bool")).Add(new JProperty(field, array[0].ToJsonObject()));
+                ((JObject) content.SelectToken(NAME)).Add(new JProperty(field, array[0].ToJsonObject()));
             }
             else
             {
-                ((JObject) content.SelectToken("bool")).Add(new JProperty(field, new JArray()));
+                ((JObject) content.SelectToken(NAME)).Add(new JProperty(field, new JArray()));
 
                 foreach (IQueryBuilder item in array)
                 {
-                    ((JArray) content.SelectToken("bool." + field)).Add(item.ToJsonObject());
+                    ((JArray) content.SelectToken(NAME + "." + field)).Add(item.ToJsonObject());
                 }
             }
 
             return content;
         }
+
+        #region IQueryBuilder Members
+
+        public object ToJsonObject()
+        {
+            var content = new JObject(new JProperty(NAME, new JObject()));
+
+            content = ArrayToObject("must", _mustClauses, content) as JObject;
+            content = ArrayToObject("must_not", _mustNotClauses, content) as JObject;
+            content = ArrayToObject("should", _shouldClauses, content) as JObject;
+
+            if (_boost != null)
+            {
+                content[NAME]["boost"] = _boost;
+            }
+
+            if (_disableCoord)
+            {
+                 content[NAME]["disable_coord"] = _disableCoord;
+            }
+
+            if (_minimumNumberShouldMatch != null)
+            {
+                 content[NAME]["minimum_number_should_match"] = _minimumNumberShouldMatch;
+            }
+
+            return content;
+        }
+
+        #endregion
     }
 }

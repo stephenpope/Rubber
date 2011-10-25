@@ -53,30 +53,61 @@ namespace Rubber.DSL.Filter
         public object ToJsonObject()
         {
             var content = new JObject(new JProperty("bool", new JObject()));
+           
+            var must = _clauses.Where(c => c.Occur == Occur.MUST).ToList();
+            var mustNot = _clauses.Where(c => c.Occur == Occur.MUST_NOT).ToList();
+            var should = _clauses.Where(c => c.Occur == Occur.SHOULD).ToList();
 
-            IEnumerable<JProperty> must = _clauses.Where(c => c.Occur == Occur.MUST).Select(t => new JProperty("must", t.Filter.ToJsonObject()));
-            IEnumerable<JProperty> mustNot = _clauses.Where(c => c.Occur == Occur.MUST_NOT).Select(t => new JProperty("must_not", t.Filter.ToJsonObject()));
-            IEnumerable<JProperty> should = _clauses.Where(c => c.Occur == Occur.SHOULD).Select(t => new JProperty("should", t.Filter.ToJsonObject()));
+            if(must.Count > 0)
+            {
+                if(must.Count == 1)
+                {
+                    content["bool"]["must"] = must[0].Filter.ToJsonObject() as JObject;  
+                }
+                else
+                {
+                    content["bool"]["must"] = new JArray(must.Select(t => t.Filter.ToJsonObject()));    
+                }
+            }
 
-            List<JProperty> w = must.Union(mustNot).Union(should).ToList();
+            if(mustNot.Count > 0)
+            {
+                if(mustNot.Count == 1)
+                {
+                    content["bool"]["must_not"] = mustNot[0].Filter.ToJsonObject() as JObject;     
+                }
+                else
+                {
+                    content["bool"]["must_not"] = new JArray(mustNot.Select(t => t.Filter.ToJsonObject()));    
+                }
+            }
+
+            if(should.Count > 0)
+            {
+                if(should.Count == 1)
+                {
+                    content["bool"]["should"] = should[0].Filter.ToJsonObject() as JObject;    
+                }
+                else
+                {
+                    content["bool"]["should"] = new JArray(should.Select(t => t.Filter.ToJsonObject()));    
+                }
+            }
 
             if (_filterName != null)
             {
-                w.Add(new JProperty("_name", _filterName));
+                content["bool"]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                w.Add(new JProperty("_cache", _cache));
+               content["bool"]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                w.Add(new JProperty("_cache_key", _cacheKey));
+                content["bool"]["_cache_key"] = _cacheKey;
             }
-
-            var sb = "{" + string.Join(",", w.Select(t => t.ToString())) + "}";
-            ((JProperty)content.Last).Value = new JRaw(sb);
 
             return content;
         }

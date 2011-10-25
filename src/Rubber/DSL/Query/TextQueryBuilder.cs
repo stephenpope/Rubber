@@ -28,61 +28,6 @@ namespace Rubber.DSL.Query
             _text = text;
         }
 
-        #region IQueryBuilder Members
-
-        public object ToJsonObject()
-        {
-            var content =
-                new JObject(new JProperty("text",
-                                          new JObject(
-                                              new JObject(new JProperty(_name,
-                                                                        new JObject(new JProperty("query", _text)))))));
-
-            if (_type != TextQueryType.BOOLEAN)
-            {
-                ((JObject) content.SelectToken("text.location")).Add(new JProperty("type", _type.ToString().ToLower()));
-            }
-
-            if (_operator != Rubber.Operator.OR)
-            {
-                ((JObject) content.SelectToken("text.location")).Add(new JProperty("operator", "and"));
-            }
-
-            if (_boost != null)
-            {
-                ((JObject) content.SelectToken("text.location")).Add(new JProperty("boost", _boost));
-            }
-
-            if (_analyzer != null)
-            {
-                ((JObject) content.SelectToken("text.location")).Add(new JProperty("analyzer", _analyzer));
-            }
-
-            if (_slop != null)
-            {
-                ((JObject) content.SelectToken("text.location")).Add(new JProperty("slop", _slop));
-            }
-
-            if (_fuzziness != null)
-            {
-                ((JObject) content.SelectToken("text.location")).Add(new JProperty("fuzziness", _fuzziness));
-            }
-
-            if (_prefixLength != null)
-            {
-                ((JObject) content.SelectToken("text.location")).Add(new JProperty("prefix_length", _prefixLength));
-            }
-
-            if (_maxExpansions != null)
-            {
-                ((JObject) content.SelectToken("text.location")).Add(new JProperty("max_expansions", _maxExpansions));
-            }
-
-            return content;
-        }
-
-        #endregion
-
         public TextQueryBuilder Type(TextQueryType type)
         {
             _type = type;
@@ -130,5 +75,60 @@ namespace Rubber.DSL.Query
             _maxExpansions = maxExpansions;
             return this;
         }
+
+        #region IQueryBuilder Members
+
+        public object ToJsonObject()
+        {
+            var content =
+                new JObject(new JProperty("text",
+                                          new JObject(
+                                              new JObject(new JProperty(_name,
+                                                                        new JObject(new JProperty("query", _text)))))));
+
+            if (_type != TextQueryType.BOOLEAN)
+            {
+                ((JObject)content.SelectToken("text.location")).Add(new JProperty("type", _type.ToString().ToLower()));
+            }
+
+            if (_operator != Rubber.Operator.OR)
+            {
+                ((JObject)content.SelectToken("text.location")).Add(new JProperty("operator", "and"));
+            }
+
+            if (_boost != null)
+            {
+                ((JObject)content.SelectToken("text.location")).Add(new JProperty("boost", _boost));
+            }
+
+            if (_analyzer != null)
+            {
+                ((JObject)content.SelectToken("text.location")).Add(new JProperty("analyzer", _analyzer));
+            }
+
+            if (_slop != null)
+            {
+                ((JObject)content.SelectToken("text.location")).Add(new JProperty("slop", _slop));
+            }
+
+            if (_fuzziness != null)
+            {
+                ((JObject)content.SelectToken("text.location")).Add(new JProperty("fuzziness", _fuzziness));
+            }
+
+            if (_prefixLength != null)
+            {
+                ((JObject)content.SelectToken("text.location")).Add(new JProperty("prefix_length", _prefixLength));
+            }
+
+            if (_maxExpansions != null)
+            {
+                ((JObject)content.SelectToken("text.location")).Add(new JProperty("max_expansions", _maxExpansions));
+            }
+
+            return content;
+        }
+
+        #endregion
     }
 }
