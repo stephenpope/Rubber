@@ -4,6 +4,7 @@ namespace Rubber.DSL.Filter
 {
     public class GeoDistanceFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.GeoDistanceFilterBuilder;
         private readonly string _name;
         private bool _cache;
         private string _cacheKey;
@@ -100,42 +101,42 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("geo_distance", new JObject()));
+            var content = new JObject(new JProperty(NAME, new JObject()));
 
             if (_geohash != null)
             {
-                content["geo_distance"][_name] = _geohash;
+                content[NAME][_name] = _geohash;
             }
             else
             {
-                content["geo_distance"][_name] = new JArray(_lon, _lat);
+                content[NAME][_name] = new JArray(_lon, _lat);
             }
 
-            content["geo_distance"]["distance"] = _distance;
+            content[NAME]["distance"] = _distance;
 
             if (_geoDistance != Rubber.GeoDistance.ARC)
             {
-                 content["geo_distance"]["distance_type"] = _geoDistance.ToString().ToLower();
+                 content[NAME]["distance_type"] = _geoDistance.ToString().ToLower();
             }
 
             if (_optimizeBbox != null)
             {
-                 content["geo_distance"]["optimize_bbox"] = _optimizeBbox;
+                 content[NAME]["optimize_bbox"] = _optimizeBbox;
             }
 
             if (_filterName != null)
             {
-                 content["geo_distance"]["_name"] = _filterName;
+                 content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                 content["geo_distance"]["_cache"] = _cache;
+                 content[NAME]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                 content["geo_distance"]["_cache_key"] = _cacheKey;
+                 content[NAME]["_cache_key"] = _cacheKey;
             }
 
             return content;

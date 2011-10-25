@@ -6,6 +6,7 @@ namespace Rubber.DSL.Filter
 {
     public class GeoBoundingBoxFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.GeoBoundingBoxFilterBuilder;
         private readonly string _name;
         private Point _bottomRight;
         private string _bottomRightGeohash;
@@ -73,15 +74,15 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("geo_bbox", new JObject(new JProperty(_name, new JObject()))));
+            var content = new JObject(new JProperty(NAME, new JObject(new JProperty(_name, new JObject()))));
 
             if (_topLeftGeohash != null)
             {
-                content["geo_bbox"][_name]["top_left"] = _topLeftGeohash;
+                content[NAME][_name]["top_left"] = _topLeftGeohash;
             }
             else if (_topLeft != null)
             {
-                content["geo_bbox"][_name]["top_left"] = new JArray(_topLeft.Lon, _topLeft.Lat);
+                content[NAME][_name]["top_left"] = new JArray(_topLeft.Lon, _topLeft.Lat);
             }
             else
             {
@@ -90,11 +91,11 @@ namespace Rubber.DSL.Filter
 
             if (_bottomRightGeohash != null)
             {
-                content["geo_bbox"][_name]["bottom_right"]= _bottomRightGeohash;
+                content[NAME][_name]["bottom_right"]= _bottomRightGeohash;
             }
             else if (_bottomRight != null)
             {
-                content["geo_bbox"][_name]["bottom_right"] = new JArray(_bottomRight.Lon, _bottomRight.Lat);
+                content[NAME][_name]["bottom_right"] = new JArray(_bottomRight.Lon, _bottomRight.Lat);
             }
             else
             {
@@ -103,22 +104,22 @@ namespace Rubber.DSL.Filter
 
             if (_filterName != null)
             {
-                content["geo_bbox"][_name]["_name"] = _filterName;
+                content[NAME][_name]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                content["geo_bbox"][_name]["_cache"] = _cache;
+                content[NAME][_name]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                content["geo_bbox"][_name]["_cache_key"] = _cacheKey;
+                content[NAME][_name]["_cache_key"] = _cacheKey;
             }
 
             if (_type != null)
             {
-                content["geo_bbox"][_name]["type"] = _cacheKey;
+                content[NAME][_name]["type"] = _cacheKey;
             }
 
             return content;

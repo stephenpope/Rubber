@@ -6,6 +6,7 @@ namespace Rubber.DSL.Filter
 {
     public class AndFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.AndFilterBuilder;
         private readonly List<IFilterBuilder> _filters = new List<IFilterBuilder>();
         private bool _cache;
         private string _cacheKey;

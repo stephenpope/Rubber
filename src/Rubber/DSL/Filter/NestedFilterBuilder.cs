@@ -5,16 +5,14 @@ namespace Rubber.DSL.Filter
 {
     public class NestedFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.NestedFilterBuilder;
         private readonly IFilterBuilder _filterBuilder;
-
         private readonly string _path;
         private readonly IQueryBuilder _queryBuilder;
-
         private bool _cache;
         private string _cacheKey;
         private string _filterName;
         private string _scope;
-
 
         public NestedFilterBuilder(string path, IQueryBuilder queryBuilder)
         {
@@ -58,37 +56,37 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("nested", new JObject()));
+            var content = new JObject(new JProperty(NAME, new JObject()));
 
             if (_queryBuilder != null)
             {
-                content["nested"]["query"] = _queryBuilder.ToJsonObject() as JObject;
+                content[NAME]["query"] = _queryBuilder.ToJsonObject() as JObject;
             }
             else
             {
-                content["nested"]["filter"] = _filterBuilder.ToJsonObject() as JObject;
+                content[NAME]["filter"] = _filterBuilder.ToJsonObject() as JObject;
             }
 
-            content["nested"]["path"] = _path;
+            content[NAME]["path"] = _path;
 
             if (_scope != null)
             {
-                content["nested"]["_scope"] = _scope;
+                content[NAME]["_scope"] = _scope;
             }
 
             if (_filterName != null)
             {
-                content["nested"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                content["nested"]["_cache"] = _cache;
+                content[NAME]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                content["nested"]["_cache_key"] = _cacheKey;
+                content[NAME]["_cache_key"] = _cacheKey;
             }
 
             return content;

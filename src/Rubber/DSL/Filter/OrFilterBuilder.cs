@@ -6,6 +6,7 @@ namespace Rubber.DSL.Filter
 {
     public class OrFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.OrFilterBuilder;
         private readonly List<IFilterBuilder> _filters = new List<IFilterBuilder>();
         private bool _cache;
         private string _cacheKey;
@@ -54,23 +55,23 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("or", new JObject()));
+            var content = new JObject(new JProperty(NAME, new JObject()));
 
-            content["or"]["filters"] = new JArray(_filters.Select(t => t.ToJsonObject()));
+            content[NAME]["filters"] = new JArray(_filters.Select(t => t.ToJsonObject()));
 
             if (_filterName != null)
             {
-                content["or"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                content["or"]["_cache"] = _cache;
+                content[NAME]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                content["or"]["_cache_key"] = _cacheKey;
+                content[NAME]["_cache_key"] = _cacheKey;
             }
 
             return content;

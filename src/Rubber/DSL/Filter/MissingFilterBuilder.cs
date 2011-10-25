@@ -4,9 +4,9 @@ namespace Rubber.DSL.Filter
 {
     public class MissingFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.MissingFilterBuilder;
         private readonly string _name;
         private string _filterName;
-
 
         public MissingFilterBuilder(string name)
         {
@@ -28,11 +28,11 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("missing", new JObject(new JProperty("field", _name))));
+            var content = new JObject(new JProperty(NAME, new JObject(new JProperty("field", _name))));
 
             if (_filterName != null)
             {
-                content["missing"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             return content;

@@ -5,6 +5,7 @@ namespace Rubber.DSL.Filter
 {
     public class TermsFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.TermsFilterBuilder;
         private readonly string _name;
         private readonly object[] _values;
         private bool _cache;
@@ -96,21 +97,21 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("terms", new JObject(new JProperty(_name, new JArray(_values)))));
+            var content = new JObject(new JProperty(NAME, new JObject(new JProperty(_name, new JArray(_values)))));
 
             if (_filterName != null)
             {
-                content["terms"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                content["terms"]["_cache"] = _cache;
+                content[NAME]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                content["terms"]["_cache_key"] = _cacheKey;
+                content[NAME]["_cache_key"] = _cacheKey;
             }
 
             return content;

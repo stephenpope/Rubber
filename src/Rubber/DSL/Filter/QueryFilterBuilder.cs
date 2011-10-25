@@ -5,6 +5,8 @@ namespace Rubber.DSL.Filter
 {
     public class QueryFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.QueryFilterBuilder;
+        private const string ALTNAME = NameRegistry.QueryFilterBuilderAlt;
         private readonly IQueryBuilder _queryBuilder;
         private bool _cache;
         private string _filterName;
@@ -34,21 +36,21 @@ namespace Rubber.DSL.Filter
 
             if (_filterName == null && _cache == false)
             {
-                content["query"] = _queryBuilder.ToJsonObject() as JObject;
+                content[NAME] = _queryBuilder.ToJsonObject() as JObject;
             }
             else
             {
-                content["fquery"] = new JObject();
-                content["fquery"]["query"] = _queryBuilder.ToJsonObject() as JObject;
+                content[ALTNAME] = new JObject();
+                content[ALTNAME]["query"] = _queryBuilder.ToJsonObject() as JObject;
 
                 if (_filterName != null)
                 {
-                    content["fquery"]["_name"] = _filterName;
+                    content[ALTNAME]["_name"] = _filterName;
                 }
 
                 if (_cache)
                 {
-                    content["fquery"]["_cache"] = _cache;
+                    content[ALTNAME]["_cache"] = _cache;
                 }
             }
 

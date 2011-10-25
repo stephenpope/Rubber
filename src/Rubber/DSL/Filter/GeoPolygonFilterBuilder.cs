@@ -7,6 +7,7 @@ namespace Rubber.DSL.Filter
 {
     public class GeoPolygonFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.GeoPolygonFilterBuilder;
         private readonly string _name;
         private readonly List<Point> _points = new List<Point>();
         private bool _cache;
@@ -68,24 +69,24 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("geo_polygon", new JObject()));
+            var content = new JObject(new JProperty(NAME, new JObject()));
 
-            content["geo_polygon"][_name] = new JObject();
-            content["geo_polygon"][_name]["points"] = new JArray(_points.Select(t => new JArray(t.Lon, t.Lat)));
+            content[NAME][_name] = new JObject();
+            content[NAME][_name]["points"] = new JArray(_points.Select(t => new JArray(t.Lon, t.Lat)));
 
             if (_filterName != null)
             {
-                content["geo_polygon"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                content["geo_polygon"]["_cache"] = _cache;
+                content[NAME]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                content["geo_polygon"]["_cache_key"] = _cacheKey;
+                content[NAME]["_cache_key"] = _cacheKey;
             }
 
             return content;

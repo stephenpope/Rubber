@@ -5,6 +5,7 @@ namespace Rubber.DSL.Filter
 {
     public class HasChildFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.HasChildFilterBuilder;
         private readonly string _childType;
         private readonly IQueryBuilder _queryBuilder;
         private string _filterName;
@@ -37,19 +38,19 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("has_child"), new JObject());
-            content["has_child"]["query"] = _queryBuilder.ToJsonObject() as JObject;
+            var content = new JObject(new JProperty(NAME), new JObject());
+            content[NAME]["query"] = _queryBuilder.ToJsonObject() as JObject;
 
-            content["has_child"]["type"] = _childType;
+            content[NAME]["type"] = _childType;
 
             if (_scope != null)
             {
-                content["has_child"]["_scope"] = _scope;
+                content[NAME]["_scope"] = _scope;
             }
 
             if (_filterName != null)
             {
-                content["has_child"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             return content;

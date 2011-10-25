@@ -4,6 +4,7 @@ namespace Rubber.DSL.Filter
 {
     public class LimitFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.LimitFilterBuilder;
         private readonly int _limit;
 
         public LimitFilterBuilder(int limit)
@@ -15,7 +16,7 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            return new JObject(new JProperty("limit", new JObject(new JProperty("value", _limit))));
+            return new JObject(new JProperty(NAME, new JObject(new JProperty("value", _limit))));
         }
 
         #endregion

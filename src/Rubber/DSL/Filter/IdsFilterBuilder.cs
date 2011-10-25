@@ -5,6 +5,7 @@ namespace Rubber.DSL.Filter
 {
     public class IdsFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.IdsFilterBuilder;
         private readonly List<string> _types;
         private readonly List<string> _values = new List<string>();
         private string _filterName;
@@ -54,25 +55,25 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("ids", new JObject()));
+            var content = new JObject(new JProperty(NAME, new JObject()));
 
-            content["ids"]["values"] = new JArray(_values);
+            content[NAME]["values"] = new JArray(_values);
 
             if (_types != null && _types.Count > 0)
             {
                 if (_types.Count == 1)
                 {
-                     content["ids"]["type"] = _types[0];
+                     content[NAME]["type"] = _types[0];
                 }
                 else
                 {
-                     content["ids"]["types"] = new JArray(_types);
+                     content[NAME]["types"] = new JArray(_types);
                 }
             }
 
             if (_filterName != null)
             {
-                 content["ids"]["_name"] = _filterName;
+                 content[NAME]["_name"] = _filterName;
             }
 
             return content;

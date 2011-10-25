@@ -4,6 +4,7 @@ namespace Rubber.DSL.Filter
 {
     public class NumericRangeFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.NumericRangeFilterBuilder;
         private readonly string _name;
         private bool _cache;
         private string _cacheKey;
@@ -416,27 +417,27 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("range", new JObject()));
+            var content = new JObject(new JProperty(NAME, new JObject()));
 
-            content["range"][_name] = new JObject();
-            content["range"][_name]["from"] = new JValue(_from);
-            content["range"][_name]["to"] = new JValue(_to);
-            content["range"][_name]["include_lower"] = _includeLower;
-            content["range"][_name]["include_upper"] = _includeUpper;
+            content[NAME][_name] = new JObject();
+            content[NAME][_name]["from"] = new JValue(_from);
+            content[NAME][_name]["to"] = new JValue(_to);
+            content[NAME][_name]["include_lower"] = _includeLower;
+            content[NAME][_name]["include_upper"] = _includeUpper;
 
             if (_filterName != null)
             {
-                content["range"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                content["range"]["_cache"] = _cache;
+                content[NAME]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                content["range"]["_cache_key"] = _cacheKey;
+                content[NAME]["_cache_key"] = _cacheKey;
             }
 
             return content;

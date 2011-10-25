@@ -4,6 +4,7 @@ namespace Rubber.DSL.Filter
 {
     public class NotFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.NotFilterBuilder;
         private readonly IFilterBuilder _filter;
         private bool _cache;
         private string _filterName;
@@ -29,18 +30,18 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("not", new JObject()));
+            var content = new JObject(new JProperty(NAME, new JObject()));
 
-            content["not"]["filter"] = _filter.ToJsonObject() as JObject;
+            content[NAME]["filter"] = _filter.ToJsonObject() as JObject;
 
             if (_filterName != null)
             {
-                content["not"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                content["not"]["_cache"] = _cache;
+                content[NAME]["_cache"] = _cache;
             }
 
             return content;

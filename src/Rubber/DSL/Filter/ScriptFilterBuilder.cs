@@ -6,6 +6,7 @@ namespace Rubber.DSL.Filter
 {
     public class ScriptFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.ScriptFilterBuilder;
         private readonly string _script;
         private bool _cache;
         private string _cacheKey;
@@ -76,36 +77,36 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("script", new JObject(new JProperty("script", _script))));
+            var content = new JObject(new JProperty(NAME, new JObject(new JProperty("script", _script))));
 
             if (_params != null)
             {
-                content["script"]["params"] = new JObject();
+                content[NAME]["params"] = new JObject();
 
                 foreach (var param in _params)
                 {
-                    content["script"]["params"][param.Key] = new JValue(param.Value);
+                    content[NAME]["params"][param.Key] = new JValue(param.Value);
                 }
             }
 
             if (_lang != null)
             {
-                content["script"]["lang"] = _lang;
+                content[NAME]["lang"] = _lang;
             }
 
             if (_filterName != null)
             {
-                content["script"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                content["script"]["_cache"] = _cache;
+                content[NAME]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                content["script"]["_cache_key"] = _cacheKey;
+                content[NAME]["_cache_key"] = _cacheKey;
             }
 
             return content;

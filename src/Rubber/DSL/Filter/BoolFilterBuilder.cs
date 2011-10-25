@@ -6,6 +6,7 @@ namespace Rubber.DSL.Filter
 {
     public class BoolFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.BoolFilterBuilder;
         private readonly List<Clause> _clauses = new List<Clause>();
 
         private bool _cache;
@@ -52,7 +53,7 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("bool", new JObject()));
+            var content = new JObject(new JProperty(NAME, new JObject()));
            
             var must = _clauses.Where(c => c.Occur == Occur.MUST).ToList();
             var mustNot = _clauses.Where(c => c.Occur == Occur.MUST_NOT).ToList();
@@ -62,11 +63,11 @@ namespace Rubber.DSL.Filter
             {
                 if(must.Count == 1)
                 {
-                    content["bool"]["must"] = must[0].Filter.ToJsonObject() as JObject;  
+                    content[NAME]["must"] = must[0].Filter.ToJsonObject() as JObject;  
                 }
                 else
                 {
-                    content["bool"]["must"] = new JArray(must.Select(t => t.Filter.ToJsonObject()));    
+                    content[NAME]["must"] = new JArray(must.Select(t => t.Filter.ToJsonObject()));    
                 }
             }
 
@@ -74,11 +75,11 @@ namespace Rubber.DSL.Filter
             {
                 if(mustNot.Count == 1)
                 {
-                    content["bool"]["must_not"] = mustNot[0].Filter.ToJsonObject() as JObject;     
+                    content[NAME]["must_not"] = mustNot[0].Filter.ToJsonObject() as JObject;     
                 }
                 else
                 {
-                    content["bool"]["must_not"] = new JArray(mustNot.Select(t => t.Filter.ToJsonObject()));    
+                    content[NAME]["must_not"] = new JArray(mustNot.Select(t => t.Filter.ToJsonObject()));    
                 }
             }
 
@@ -86,27 +87,27 @@ namespace Rubber.DSL.Filter
             {
                 if(should.Count == 1)
                 {
-                    content["bool"]["should"] = should[0].Filter.ToJsonObject() as JObject;    
+                    content[NAME]["should"] = should[0].Filter.ToJsonObject() as JObject;    
                 }
                 else
                 {
-                    content["bool"]["should"] = new JArray(should.Select(t => t.Filter.ToJsonObject()));    
+                    content[NAME]["should"] = new JArray(should.Select(t => t.Filter.ToJsonObject()));    
                 }
             }
 
             if (_filterName != null)
             {
-                content["bool"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-               content["bool"]["_cache"] = _cache;
+               content[NAME]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                content["bool"]["_cache_key"] = _cacheKey;
+                content[NAME]["_cache_key"] = _cacheKey;
             }
 
             return content;

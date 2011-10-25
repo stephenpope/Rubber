@@ -4,6 +4,7 @@ namespace Rubber.DSL.Filter
 {
     public class ExistsFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.ExistsFilterBuilder;
         private readonly string _name;
         private string _filterName;
 
@@ -23,11 +24,11 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("exists", new JObject(new JProperty("field", _name))));
+            var content = new JObject(new JProperty(NAME, new JObject(new JProperty("field", _name))));
 
             if (_filterName != null)
             {
-                content["exists"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             return content;

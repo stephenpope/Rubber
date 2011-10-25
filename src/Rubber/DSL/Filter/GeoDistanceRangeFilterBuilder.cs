@@ -4,6 +4,7 @@ namespace Rubber.DSL.Filter
 {
     public class GeoDistanceRangeFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.GeoDistanceRangeFilterBuilder;
         private readonly string _name;
         private bool _cache;
         private string _cacheKey;
@@ -145,48 +146,48 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("geo_distance_range", new JObject()));
+            var content = new JObject(new JProperty(NAME, new JObject()));
 
             if (_geohash != null)
             {
-                content["geo_distance_range"][_name] = _geohash;
+                content[NAME][_name] = _geohash;
             }
             else
             {
-                content["geo_distance_range"][_name] = new JArray(_lon, _lat);
+                content[NAME][_name] = new JArray(_lon, _lat);
             }
 
-            content["geo_distance_range"]["from"] = new JValue(_from);
+            content[NAME]["from"] = new JValue(_from);
 
-            content["geo_distance_range"]["to"] = new JValue(_to);
+            content[NAME]["to"] = new JValue(_to);
 
-            content["geo_distance_range"]["include_lower"] = _includeLower;
+            content[NAME]["include_lower"] = _includeLower;
 
-            content["geo_distance_range"]["include_upper"] = _includeUpper;
+            content[NAME]["include_upper"] = _includeUpper;
 
             if (_geoDistance != Rubber.GeoDistance.ARC)
             {
-                content["geo_distance_range"]["distance_type"] = _geoDistance.ToString().ToLower();
+                content[NAME]["distance_type"] = _geoDistance.ToString().ToLower();
             }
 
             if (_optimizeBbox != null)
             {
-                content["geo_distance_range"]["optimize_bbox"] = _optimizeBbox;
+                content[NAME]["optimize_bbox"] = _optimizeBbox;
             }
 
             if (_filterName != null)
             {
-                content["geo_distance_range"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                content["geo_distance_range"]["_cache"] = _cache;
+                content[NAME]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                content["geo_distance_range"]["_cache_key"] = _cacheKey;
+                content[NAME]["_cache_key"] = _cacheKey;
             }
 
             return content;

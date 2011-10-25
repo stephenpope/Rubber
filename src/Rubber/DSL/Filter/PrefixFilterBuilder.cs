@@ -4,6 +4,7 @@ namespace Rubber.DSL.Filter
 {
     public class PrefixFilterBuilder : IFilterBuilder
     {
+        private const string NAME = NameRegistry.PrefixFilterBuilder;
         private readonly string _name;
         private readonly string _prefix;
         private bool _cache;
@@ -38,21 +39,21 @@ namespace Rubber.DSL.Filter
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("prefix", new JObject(new JProperty(_name, _prefix))));
+            var content = new JObject(new JProperty(NAME, new JObject(new JProperty(_name, _prefix))));
 
             if (_filterName != null)
             {
-                content["prefix"]["_name"] = _filterName;
+                content[NAME]["_name"] = _filterName;
             }
 
             if (_cache)
             {
-                content["prefix"]["_cache"] = _cache;
+                content[NAME]["_cache"] = _cache;
             }
 
             if (_cacheKey != null)
             {
-                content["prefix"]["_cache_key"] = _cacheKey;
+                content[NAME]["_cache_key"] = _cacheKey;
             }
 
             return content;
