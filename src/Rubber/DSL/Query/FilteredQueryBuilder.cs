@@ -6,6 +6,7 @@ namespace Rubber.DSL.Query
 {
     public class FilteredQueryBuilder : IQueryBuilder
     {
+        private const string NAME = NameRegistry.FilteredQueryBuilder;
         private readonly IQueryBuilder _queryBuilder;
         private readonly IFilterBuilder _filterBuilder;
         private float? _boost;
@@ -37,17 +38,17 @@ namespace Rubber.DSL.Query
 
         public object ToJsonObject()
         {
-            var content = new JObject(new JProperty("filtered",new JObject()));
-            
-            content["filtered"]["query"] = _queryBuilder.ToJsonObject() as JObject;
+            var content = new JObject(new JProperty(NAME, new JObject()));
 
-            content["filtered"]["filter"] = _filterBuilder.ToJsonObject() as JObject;
-            
-            if(_boost != null)
+            content[NAME]["query"] = _queryBuilder.ToJsonObject() as JObject;
+
+            content[NAME]["filter"] = _filterBuilder.ToJsonObject() as JObject;
+
+            if (_boost != null)
             {
-                content["boost"] = _boost;
+                content[NAME]["boost"] = _boost;
             }
-            
+
             return content;
         }
 

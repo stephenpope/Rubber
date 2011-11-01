@@ -255,21 +255,21 @@ namespace Rubber.DSL.Query
         {
             var content = new JObject(new JProperty(NAME), new JObject());
 
-            if(!_extraSet)
+            if (!_extraSet)
             {
                 content[NAME][_name] = new JValue(_query);
             }
             else
             {
-                content[NAME][_name] = new JObject();      
+                content[NAME][_name] = new JObject();
                 content[NAME][_name]["query"] = new JValue(_query);
 
-                if(_defaultOperator != null)
+                if (_defaultOperator != null)
                 {
                     content[NAME][_name]["default_operator"] = _defaultOperator.Value.ToString().ToLower();
                 }
 
-                if(_analyzer != null)
+                if (_analyzer != null)
                 {
                     content[NAME][_name]["analyzer"] = _analyzer;
                 }
@@ -294,7 +294,7 @@ namespace Rubber.DSL.Query
                     content[NAME][_name]["enable_position_increments"] = _enablePositionIncrements;
                 }
 
-                if(_fuzzyMinSim != null)
+                if (_fuzzyMinSim != null)
                 {
                     content[NAME][_name]["fuzzy_min_sim"] = _fuzzyMinSim;
                 }
@@ -303,12 +303,12 @@ namespace Rubber.DSL.Query
                 {
                     content[NAME][_name]["fuzzy_prefix_length"] = _fuzzyPrefixLength;
                 }
-                
+
                 if (_phraseSlop != null)
                 {
                     content[NAME][_name]["phrase_slop"] = _phraseSlop;
                 }
-                
+
                 if (_analyzeWildcard)
                 {
                     content[NAME][_name]["analyze_wildcard"] = _analyzeWildcard;

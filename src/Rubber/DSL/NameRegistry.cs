@@ -11,6 +11,11 @@
         public const string DisMaxQueryBuilder = "dis_max";
         public const string FieldMaskingSpanQueryBuilder = "field_masking_span";
         public const string FieldQueryBuilder = "field";
+        public const string FilteredQueryBuilder = "filtered";
+        public const string FuzzyLikeThisFieldQueryBuilder = "flt_field";
+        public const string FuzzyLikeThisQueryBuilder = "flt";
+        public const string FuzzyQueryBuilder = "fuzzy";
+        public const string HasChildQueryBuilder = "has_child";
 
         public const string AndFilterBuilder = "and";
         public const string BoolFilterBuilder = "bool";
