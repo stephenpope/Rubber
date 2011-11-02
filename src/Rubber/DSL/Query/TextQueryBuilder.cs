@@ -4,16 +4,12 @@ namespace Rubber.DSL.Query
 {
     public class TextQueryBuilder : IQueryBuilder
     {
+        private const string NAME = NameRegistry.TextQueryBuilder;
         private readonly string _name;
-
         private readonly object _text;
-
         private string _analyzer;
-
         private float? _boost;
-
         private string _fuzziness;
-
         private int? _maxExpansions;
         private Operator _operator;
         private int? _prefixLength;
@@ -80,50 +76,49 @@ namespace Rubber.DSL.Query
 
         public object ToJsonObject()
         {
-            var content =
-                new JObject(new JProperty("text",
-                                          new JObject(
-                                              new JObject(new JProperty(_name,
-                                                                        new JObject(new JProperty("query", _text)))))));
+            var content = new JObject(new JProperty(NAME, new JObject()));
+
+            content[NAME][_name] = new JObject();
+            content[NAME][_name]["query"] = new JValue(_text);
 
             if (_type != TextQueryType.BOOLEAN)
             {
-                ((JObject)content.SelectToken("text.location")).Add(new JProperty("type", _type.ToString().ToLower()));
+                content[NAME][_name]["type"] = _type.ToString().ToLower();
             }
 
             if (_operator != Rubber.Operator.OR)
             {
-                ((JObject)content.SelectToken("text.location")).Add(new JProperty("operator", "and"));
+                content[NAME][_name]["operator"] = "and";
             }
 
             if (_boost != null)
             {
-                ((JObject)content.SelectToken("text.location")).Add(new JProperty("boost", _boost));
+                content[NAME][_name]["boost"] = _boost;
             }
 
             if (_analyzer != null)
             {
-                ((JObject)content.SelectToken("text.location")).Add(new JProperty("analyzer", _analyzer));
+                content[NAME][_name]["analyzer"] = _analyzer;
             }
 
             if (_slop != null)
             {
-                ((JObject)content.SelectToken("text.location")).Add(new JProperty("slop", _slop));
+                content[NAME][_name]["slop"] = _slop;
             }
 
             if (_fuzziness != null)
             {
-                ((JObject)content.SelectToken("text.location")).Add(new JProperty("fuzziness", _fuzziness));
+                content[NAME][_name]["fuzziness"] = _fuzziness;
             }
 
             if (_prefixLength != null)
             {
-                ((JObject)content.SelectToken("text.location")).Add(new JProperty("prefix_length", _prefixLength));
+                content[NAME][_name]["prefix_length"] = _prefixLength;
             }
 
             if (_maxExpansions != null)
             {
-                ((JObject)content.SelectToken("text.location")).Add(new JProperty("max_expansions", _maxExpansions));
+                content[NAME][_name]["max_expansions"] = _maxExpansions;
             }
 
             return content;

@@ -4,29 +4,9 @@ namespace Rubber.DSL.Query
 {
     public class MatchAllQueryBuilder : IQueryBuilder
     {
+        private const string NAME = NameRegistry.MatchAllQueryBuilder;
         private float? _boost;
         private string _normsField;
-
-        #region IQueryBuilder Members
-
-        public object ToJsonObject()
-        {
-            var content = new JObject(new JProperty("match_all", new JObject()));
-
-            if (_boost != null)
-            {
-                ((JObject) content.SelectToken("match_all")).Add(new JProperty("boost", _boost));
-            }
-
-            if (_normsField != null)
-            {
-                ((JObject) content.SelectToken("match_all")).Add(new JProperty("norms_field", _normsField));
-            }
-
-            return content;
-        }
-
-        #endregion
 
         public MatchAllQueryBuilder NormsField(string normsField)
         {
@@ -39,5 +19,26 @@ namespace Rubber.DSL.Query
             _boost = boost;
             return this;
         }
+
+        #region IQueryBuilder Members
+
+        public object ToJsonObject()
+        {
+            var content = new JObject(new JProperty(NAME, new JObject()));
+
+            if (_boost != null)
+            {
+                content[NAME]["boost"] = _boost;
+            }
+
+            if (_normsField != null)
+            {
+                content[NAME]["norms_field"] = _normsField;
+            }
+
+            return content;
+        }
+
+        #endregion
     }
 }

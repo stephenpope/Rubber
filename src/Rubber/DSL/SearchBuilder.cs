@@ -488,6 +488,11 @@ namespace Rubber.DSL
 
         #region IJsonSerializable Members
 
+        public override string ToString()
+        {
+            return ToJsonObject().ToString();
+        }
+
         public object ToJsonObject()
         {
             var content = new JObject();

@@ -7,7 +7,7 @@ namespace Rubber.DSL.Query
     {
         private const string NAME = NameRegistry.HasChildQueryBuilder;
         private readonly IQueryBuilder _queryBuilder;
-        private string _childType;
+        private readonly string _childType;
         private string _scope;
         private float _boost = 1.0f;
 

@@ -16,6 +16,15 @@
         public const string FuzzyLikeThisQueryBuilder = "flt";
         public const string FuzzyQueryBuilder = "fuzzy";
         public const string HasChildQueryBuilder = "has_child";
+        public const string IdsQueryBuilder = "ids";
+        public const string MatchAllQueryBuilder = "match_all";
+        public const string MoreLikeThisFieldQueryBuilder = "mlt_field";
+        public const string MoreLikeThisQueryBuilder = "mlt";
+        public const string NestedQueryBuilder = "nested";
+        public const string PrefixQueryBuilder = "prefix";
+
+        public const string TermQueryBuilder = "term";
+        public const string TextQueryBuilder = "text";
 
         public const string AndFilterBuilder = "and";
         public const string BoolFilterBuilder = "bool";
