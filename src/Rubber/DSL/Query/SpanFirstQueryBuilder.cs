@@ -1,19 +1,41 @@
 ﻿using System;
+using Newtonsoft.Json.Linq;
 
 namespace Rubber.DSL.Query
 {
     public class SpanFirstQueryBuilder : ISpanQueryBuilder
     {
-        public SpanFirstQueryBuilder(ISpanQueryBuilder match, int end)
+        private const string NAME = NameRegistry.SpanFirstQueryBuilder;
+        private readonly ISpanQueryBuilder _matchBuilder;
+        private readonly int _end;
+        private float? _boost;
+
+        public SpanFirstQueryBuilder(ISpanQueryBuilder matchBuilder, int end)
         {
-            throw new NotImplementedException();
+            _matchBuilder = matchBuilder;
+            _end = end;
+        }
+
+        public SpanFirstQueryBuilder Boost(float boost)
+        {
+            _boost = boost;
+            return this;
         }
 
         #region ISpanQueryBuilder Members
 
         public object ToJsonObject()
         {
-            throw new NotImplementedException();
+            var content = new JObject(new JProperty(NAME, new JObject()));
+            content[NAME]["match"] = _matchBuilder.ToJsonObject() as JObject;
+            content[NAME]["end"] = _end;
+
+            if (_boost != null)
+            {
+                content[NAME]["boost"] = _boost;
+            }
+            
+            return content;
         }
 
         #endregion

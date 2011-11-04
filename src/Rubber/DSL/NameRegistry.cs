@@ -2,6 +2,7 @@
 {
     public static class NameRegistry
     {
+        #region IQueryBuilders
         public const string BoolQueryBuilder = "bool";
         public const string BoostingQueryBuilder = "boosting";
         public const string ConstantScoreQueryBuilder = "constant_score";
@@ -22,10 +23,22 @@
         public const string MoreLikeThisQueryBuilder = "mlt";
         public const string NestedQueryBuilder = "nested";
         public const string PrefixQueryBuilder = "prefix";
-
+        public const string QuerystringQueryBuilder = "query_string";
+        public const string RangeQueryBuilder = "range";
+        public const string SpanFirstQueryBuilder = "span_first";
+        public const string SpanNearQueryBuilder = "span_first";
+        public const string SpanNotQueryBuilder = "span_not";
+        public const string SpanOrQueryBuilder = "span_or";
+        public const string SpanTermQueryBuilder = "span_term";
         public const string TermQueryBuilder = "term";
+        public const string TermsQueryBuilder = "terms";
         public const string TextQueryBuilder = "text";
+        public const string TopChildrenQueryBuilder = "top_children";
+        public const string WildcardQueryBuilder = "wildcard";
+        public const string WrapperQueryBuilder = "wrapper";
+        #endregion
 
+        #region IFilterBuilders
         public const string AndFilterBuilder = "and";
         public const string BoolFilterBuilder = "bool";
         public const string ExistsFilterBuilder = "exists";
@@ -50,5 +63,6 @@
         public const string TermFilterBuilder = "term";
         public const string TermsFilterBuilder = "terms";
         public const string TypeFilterBuilder = "type";
+        #endregion
     }
 }
