@@ -130,6 +130,8 @@
     <Compile Include="DSL\Sort\ISortBuilder.cs" />
     <Compile Include="DSL\Sort\ScoreSortBuilder.cs" />
     <Compile Include="DSL\Sort\ScriptSortBuilder.cs" />
+    <Compile Include="Enums\DateHistogramComparatorType.cs" />
+    <Compile Include="Enums\HistogramComparatorType.cs" />
     <Compile Include="Enums\SortOrder.cs" />
     <Compile Include="Common\GeoHashUtils.cs" />
     <Compile Include="Common\Point.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="Enums\GeoDistance.cs" />
     <Compile Include="Enums\Occur.cs" />
     <Compile Include="Enums\QueryOperator.cs" />
+    <Compile Include="Enums\TermsStatsComparatorType.cs" />
     <Compile Include="Enums\TextQueryType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

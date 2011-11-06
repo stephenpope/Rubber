@@ -64,5 +64,20 @@
         public const string TermsFilterBuilder = "terms";
         public const string TypeFilterBuilder = "type";
         #endregion
+
+        #region FacetBuilders
+        public const string DateHistogramFacetBuilder = "date_histogram";
+        public const string FilterFacetBuilder = "filter";
+        public const string GeoDistanceFacetBuilder = "geo_distance";
+        public const string HistogramFacetBuilder = "histogram";
+        public const string HistogramScriptFacetBuilder = "histogram";
+        public const string QueryFacetBuilder = "query";
+        public const string RangeFacetBuilder = "range";
+        public const string RangeScriptFacetBuilder = "range";
+        public const string StatisticalFacetBuilder = "statistical";
+        public const string StatisticalScriptFacetBuilder = "statistical";
+        public const string TermsFacetBuilder = "terms";
+        public const string TermsStatsFacetBuilder = "terms_stats";  
+        #endregion
     }
 }

@@ -8,6 +8,7 @@ namespace Rubber.DSL.Facet
 {
     public class TermsFacetBuilder : AbstractFacetBuilder
     {
+        private const string NAME = NameRegistry.TermsFacetBuilder;
         private bool _allTerms;
         private ComparatorType _comparatorType;
         private object[] _exclude;
@@ -140,7 +141,7 @@ namespace Rubber.DSL.Facet
                 throw new SearchBuilderException("field/fields/script must be set on terms facet for facet [" + _name + "]");
             }
 
-            var content = new JObject(new JProperty("terms", new JObject()));
+            var content = new JObject(new JProperty(NAME, new JObject()));
 
             if (_fieldsNames != null)
             {
@@ -148,68 +149,68 @@ namespace Rubber.DSL.Facet
                 {
                     if (_fieldsNames.Count() == 1)
                     {
-                        content["terms"]["field"] = _fieldsNames[0];
+                        content[NAME]["field"] = _fieldsNames[0];
                     }
                     else
                     {
-                        content["terms"]["fields"] = new JArray(_fieldsNames);
+                        content[NAME]["fields"] = new JArray(_fieldsNames);
                     }
                 }
             }
             else if (_fieldName != null)
             {
-                content["terms"]["field"] = _fieldName;
+                content[NAME]["field"] = _fieldName;
             }
 
-            content["terms"]["size"] = _size;
+            content[NAME]["size"] = _size;
 
             if (_exclude != null)
             {
-                content["terms"]["exclude"] = new JArray(_exclude);
+                content[NAME]["exclude"] = new JArray(_exclude);
             }
 
             if (_comparatorType != ComparatorType.COUNT)
             {
-                content["terms"]["order"] = _comparatorType.ToString().ToLower();
+                content[NAME]["order"] = _comparatorType.ToString().ToLower();
             }
 
             if (_regex != null)
             {
-                content["terms"]["regex"] = _regex;
+                content[NAME]["regex"] = _regex;
 
                 if (_regexFlags != 0)
                 {
-                    content["terms"]["regex_flags"] = Common.Regex.FlagsToString(_regexFlags);
+                    content[NAME]["regex_flags"] = Common.Regex.FlagsToString(_regexFlags);
                 }
             }
 
             if (_script != null)
             {
-                content["terms"]["script"] = _script;
+                content[NAME]["script"] = _script;
 
                 if (_lang != null)
                 {
-                    content["terms"]["lang"] = _lang;
+                    content[NAME]["lang"] = _lang;
                 }
                 if (_params != null)
                 {
-                    content["terms"]["params"] = new JObject();
+                    content[NAME]["params"] = new JObject();
 
                     foreach (var param in _params)
                     {
-                        content["terms"]["params"][param.Key] = param.Value as JObject;
+                        content[NAME]["params"][param.Key] = new JValue(param.Value);
                     }
                 }
             }
 
             if (_allTerms)
             {
-                content["terms"]["all_terms"] = _allTerms;
+                content[NAME]["all_terms"] = _allTerms;
             }
 
             if (_executionHint != null)
             {
-                content["terms"]["execution_hint"] = _executionHint;
+                content[NAME]["execution_hint"] = _executionHint;
             }
 
             return AddFilterFacetAndGlobal(content);

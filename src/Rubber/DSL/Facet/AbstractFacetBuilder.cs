@@ -20,13 +20,13 @@ namespace Rubber.DSL.Facet
             get { return _name; }
         }
 
-        public AbstractFacetBuilder Filter(IFilterBuilder filter)
+        protected AbstractFacetBuilder FacetFilter(IFilterBuilder filter)
         {
             _facetFilter = filter;
             return this;
         }
 
-        public AbstractFacetBuilder Nested(string nested)
+        protected AbstractFacetBuilder Nested(string nested)
         {
             _nested = nested;
             return this;
