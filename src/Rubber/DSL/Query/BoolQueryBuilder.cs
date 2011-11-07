@@ -76,15 +76,15 @@ namespace Rubber.DSL.Query
 
         /// <summary>
         /// Specifies a minimum number of the optional (should) boolean clauses which must be satisfied.
-        /// <p>By default no optional clauses are necessary for a match
-        /// (unless there are no required clauses).  If this method is used,
+        /// By default no optional clauses are necessary for a match
+        /// (unless there are no required clauses). If this method is used,
         /// then the specified number of clauses is required.
         ///
-        /// <p>Use of this method is totally independent of specifying that
+        /// Use of this method is totally independent of specifying that
         /// any specific clauses are required (or prohibited).  This number will
         /// only be compared against the number of matching optional clauses.
         ///
-        /// @param minimumNumberShouldMatch the number of optional clauses that must match
+        /// minimumNumberShouldMatch the number of optional clauses that must match
         /// </summary>
         /// <param name="minimumNumberShouldMatch"></param>
         /// <returns></returns>

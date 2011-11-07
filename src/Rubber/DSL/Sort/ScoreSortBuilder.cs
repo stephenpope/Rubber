@@ -1,20 +1,41 @@
-﻿namespace Rubber.DSL.Sort
+﻿using Newtonsoft.Json.Linq;
+
+namespace Rubber.DSL.Sort
 {
+    /// <summary>
+    /// A sort builder allowing to sort by score.
+    /// </summary>
     public class ScoreSortBuilder : ISortBuilder
     {
-        public object ToJsonObject()
-        {
-            throw new System.NotImplementedException();
-        }
+        private const string NAME = NameRegistry.ScoreSortBuilder;
+        private SortOrder _order;
 
+        /// <summary>
+        /// The order of sort scoring. By default, its DESC.
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public ISortBuilder Order(SortOrder order)
         {
-            throw new System.NotImplementedException();
+            _order = order;
+            return this;
         }
 
         public ISortBuilder Missing(object missing)
         {
-            throw new System.NotImplementedException();
+            return this;
+        }
+
+        public object ToJsonObject()
+        {
+            var content = new JObject(new JProperty(NAME, new JObject()));
+
+            if(_order == SortOrder.ASC)
+            {
+                content[NAME]["reverse"] = true;
+            }
+
+            return content;
         }
     }
 }

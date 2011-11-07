@@ -79,5 +79,11 @@
         public const string TermsFacetBuilder = "terms";
         public const string TermsStatsFacetBuilder = "terms_stats";  
         #endregion
+
+        #region ISortBuilders
+        public const string GeoDistanceSortBuilder = "_geo_distance";
+        public const string ScoreSortBuilder = "_score";
+        public const string ScriptSortBuilder = "_script";
+        #endregion
     }
 }
