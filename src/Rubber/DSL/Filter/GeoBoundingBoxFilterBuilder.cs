@@ -125,6 +125,11 @@ namespace Rubber.DSL.Filter
             return content;
         }
 
+        public override string ToString()
+        {
+            return ToJsonObject().ToString();
+        }
+
         #endregion
     }
 }

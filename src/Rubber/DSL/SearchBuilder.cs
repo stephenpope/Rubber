@@ -613,7 +613,7 @@ namespace Rubber.DSL
 
             if (_stats != null)
             {
-                if (_stats.Count() > 0)
+                if (_stats.Any())
                 {
                     content["stats"] = new JArray(_stats);
                 }

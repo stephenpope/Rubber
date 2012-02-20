@@ -44,6 +44,11 @@ namespace Rubber.DSL.Query
             return content;
         }
 
+        public override string ToString()
+        {
+            return ToJsonObject().ToString();
+        }
+
         #endregion
     }
 }

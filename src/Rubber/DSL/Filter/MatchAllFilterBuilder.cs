@@ -13,6 +13,11 @@ namespace Rubber.DSL.Filter
             return new JObject(new JProperty(NAME, new JObject()));
         }
 
+        public override string ToString()
+        {
+            return ToJsonObject().ToString();
+        }
+
         #endregion
     }
 }

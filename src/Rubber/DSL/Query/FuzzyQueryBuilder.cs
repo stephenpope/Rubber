@@ -84,28 +84,11 @@ namespace Rubber.DSL.Query
             return content;
         }
 
+        public override string ToString()
+        {
+            return ToJsonObject().ToString();
+        }
+
         #endregion
     }
 }
-
-//    @Override public void doXContent(XContentBuilder builder, Params params) throws IOException {
-//        builder.startObject(FuzzyQueryParser.NAME);
-//        if (boost == -1 && minSimilarity == null && prefixLength == null) {
-//            builder.field(name, value);
-//        } else {
-//            builder.startObject(name);
-//            builder.field("value", value);
-//            if (boost != -1) {
-//                builder.field("boost", boost);
-//            }
-//            if (minSimilarity != null) {
-//                builder.field("min_similarity", minSimilarity);
-//            }
-//            if (prefixLength != null) {
-//                builder.field("prefix_length", prefixLength);
-//            }
-//            builder.endObject();
-//        }
-//        builder.endObject();
-//    }
-//}

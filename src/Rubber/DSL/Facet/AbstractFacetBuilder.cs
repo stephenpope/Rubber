@@ -66,6 +66,11 @@ namespace Rubber.DSL.Facet
             return content;
         }
 
+        public override string ToString()
+        {
+            return ToJsonObject().ToString();
+        }
+
         public abstract object ToJsonObject();
     }
 }

@@ -122,5 +122,10 @@ namespace Rubber.DSL.Sort
             
             return content;
         }
+
+        public override string ToString()
+        {
+            return ToJsonObject().ToString();
+        }
     }
 }
