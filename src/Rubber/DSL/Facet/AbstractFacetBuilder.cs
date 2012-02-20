@@ -34,7 +34,7 @@ namespace Rubber.DSL.Facet
 
         protected AbstractFacetBuilder Global(bool globalScope)
         {
-            _scope = "_global_"; //TODO: move to class
+            _scope = NameRegistry.AbstractFacetBuilder;
             return this;
         }
 

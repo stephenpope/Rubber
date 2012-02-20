@@ -32,6 +32,7 @@ namespace Rubber.DSL.Query
         private bool _useDisMax;
         private float? _tieBreaker;
         private string _rewrite = null;
+        private string _minimumShouldMatch;
 
         public QueryStringQueryBuilder(string querystring)
         {
@@ -260,6 +261,12 @@ namespace Rubber.DSL.Query
             return this;
         }
 
+        public QueryStringQueryBuilder MinimumShouldMatch(string minimumShouldMatch)
+        {
+            _minimumShouldMatch = minimumShouldMatch;
+            return this;
+        }
+
         #region IQueryBuilder Members
 
         public object ToJsonObject()
@@ -366,6 +373,11 @@ namespace Rubber.DSL.Query
             if (_rewrite != null)
             {
                 content[NAME]["rewrite"] = _rewrite;
+            }
+
+            if (_minimumShouldMatch != null)
+            {
+                content[NAME]["minimum_should_match"] = _minimumShouldMatch;
             }
             
             return content;

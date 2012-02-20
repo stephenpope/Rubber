@@ -468,6 +468,18 @@ namespace Rubber.DSL
         }
 
         /// <summary>
+        /// A query that will execute the wrapped query only for the specified indices, and "match_all" when
+        /// it does not match those indices.
+        /// </summary>
+        /// <param name="queryBuilder"></param>
+        /// <param name="indices"> </param>
+        /// <returns></returns>
+        public static IndicesQueryBuilder IndicesQuery(IQueryBuilder queryBuilder, params string[] indices) 
+        {
+            return new IndicesQueryBuilder(queryBuilder, indices);
+        }
+
+        /// <summary>
         /// A more like this query that runs against a specific field.
         /// </summary>
         /// <param name="name">The field name</param>

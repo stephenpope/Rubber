@@ -23,6 +23,7 @@ namespace Rubber.DSL.Query
         /// Adds ids to the filter.
         /// </summary>
         /// <param name="?"></param>
+        /// <param name="ids"> </param>
         /// <returns></returns>
         public IdsQueryBuilder AddIds(params string[] ids)
         {
@@ -34,6 +35,7 @@ namespace Rubber.DSL.Query
         /// Adds ids to the filter.
         /// </summary>
         /// <param name="?"></param>
+        /// <param name="ids"> </param>
         /// <returns></returns>
         public IdsQueryBuilder Ids(params string[] ids)
         {

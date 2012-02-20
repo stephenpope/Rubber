@@ -27,6 +27,7 @@ namespace Rubber.DSL.Query
         private int? _phraseSlop;
         private bool _extraSet;
         private string _rewrite;
+        private string _minimumShouldMatch;
 
         /// <summary>
         /// A query that executes the query string against a field. It is a simplified
@@ -242,10 +243,17 @@ namespace Rubber.DSL.Query
             return this;
         }
 
-        public FieldQueryBuilder Rewrite(String rewrite)
+        public FieldQueryBuilder Rewrite(string rewrite)
         {
             _rewrite = rewrite;
             _extraSet = true;
+            return this;
+        }
+
+
+        public FieldQueryBuilder MinimumShouldMatch(string minimumShouldMatch)
+        {
+            _minimumShouldMatch = minimumShouldMatch;
             return this;
         }
 
@@ -322,6 +330,11 @@ namespace Rubber.DSL.Query
                 if (_rewrite != null)
                 {
                     content[NAME][_name]["rewrite"] = _rewrite;
+                }
+
+                if (_minimumShouldMatch != null)
+                {
+                    content[NAME][_name]["minimum_should_match"] = _minimumShouldMatch;
                 }
             }
 

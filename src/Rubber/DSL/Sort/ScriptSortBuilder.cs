@@ -86,6 +86,11 @@ namespace Rubber.DSL.Sort
                 content[NAME]["reverse"] = true;
             }
 
+            if (_lang != null)
+            {
+                content[NAME]["lang"] = _lang;
+            }
+
             if (_params != null)
             {
                 content[NAME]["params"] = new JObject();

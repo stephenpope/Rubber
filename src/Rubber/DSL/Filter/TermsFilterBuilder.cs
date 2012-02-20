@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace Rubber.DSL.Filter
@@ -11,9 +12,10 @@ namespace Rubber.DSL.Filter
         private bool _cache;
         private string _cacheKey;
         private string _filterName;
+        private string _execution;
 
         /// <summary>
-        /// A filer for a field based on several terms matching on any of them.
+        /// A filter for a field based on several terms matching on any of them.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="values"></param>
@@ -21,7 +23,7 @@ namespace Rubber.DSL.Filter
 
 
         /// <summary>
-        /// A filer for a field based on several terms matching on any of them.
+        /// A filter for a field based on several terms matching on any of them.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="values"></param>
@@ -32,7 +34,7 @@ namespace Rubber.DSL.Filter
         }
 
         /// <summary>
-        /// A filer for a field based on several terms matching on any of them.
+        /// A filter for a field based on several terms matching on any of them.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="values"></param>
@@ -43,7 +45,7 @@ namespace Rubber.DSL.Filter
         }
 
         /// <summary>
-        /// A filer for a field based on several terms matching on any of them.
+        /// A filter for a field based on several terms matching on any of them.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="values"></param>
@@ -54,7 +56,7 @@ namespace Rubber.DSL.Filter
         }
 
         /// <summary>
-        /// A filer for a field based on several terms matching on any of them.
+        /// A filter for a field based on several terms matching on any of them.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="values"></param>
@@ -65,7 +67,7 @@ namespace Rubber.DSL.Filter
         }
 
         /// <summary>
-        /// A filer for a field based on several terms matching on any of them.
+        /// A filter for a field based on several terms matching on any of them.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="values"></param>
@@ -75,12 +77,35 @@ namespace Rubber.DSL.Filter
             _values = values;
         }
 
+        public TermsFilterBuilder(string name, IEnumerable<object> values)
+        {
+            _name = name;
+            _values = values.ToArray();
+        }
+
+        /// <summary>
+        /// Sets the execution mode for the terms filter. Can be either "plain", "bool"
+        /// "and". Defaults to "plain".
+        /// </summary>
+        /// <param name="execution"></param>
+        /// <returns></returns>
+        public TermsFilterBuilder Execution(string execution)
+        {
+            _execution = execution;
+            return this;
+        }
+
         public TermsFilterBuilder FilterName(string filterName)
         {
             _filterName = filterName;
             return this;
         }
 
+        /// <summary>
+        /// Should the filter be cached or not. Defaults to <tt>false</tt>.
+        /// </summary>
+        /// <param name="cache"></param>
+        /// <returns></returns>
         public TermsFilterBuilder Cache(bool cache)
         {
             _cache = cache;
@@ -98,6 +123,11 @@ namespace Rubber.DSL.Filter
         public object ToJsonObject()
         {
             var content = new JObject(new JProperty(NAME, new JObject(new JProperty(_name, new JArray(_values)))));
+
+            if (_execution != null)
+            {
+                content[NAME]["execution"] = _execution;
+            }
 
             if (_filterName != null)
             {

@@ -36,6 +36,7 @@
         public const string TopChildrenQueryBuilder = "top_children";
         public const string WildcardQueryBuilder = "wildcard";
         public const string WrapperQueryBuilder = "wrapper";
+        public const string IndicesQueryBuilder = "indices";
         #endregion
 
         #region IFilterBuilders
@@ -66,6 +67,7 @@
         #endregion
 
         #region FacetBuilders
+        public const string AbstractFacetBuilder = "_global_";
         public const string DateHistogramFacetBuilder = "date_histogram";
         public const string FilterFacetBuilder = "filter";
         public const string GeoDistanceFacetBuilder = "geo_distance";

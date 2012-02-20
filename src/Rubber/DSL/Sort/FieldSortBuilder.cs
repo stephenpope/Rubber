@@ -7,10 +7,23 @@ namespace Rubber.DSL.Sort
         private readonly string _fieldName;
         private object _missing;
         private SortOrder _order;
+        private bool? _ignoreUnampped;
 
         public FieldSortBuilder(string fieldName)
         {
             _fieldName = fieldName;
+        }
+
+        /// <summary>
+        /// Sets if the field does not exists in the index, it should be ignored and not sorted by or not. Defaults
+        /// to <tt>false</tt> (not ignoring).
+        /// </summary>
+        /// <param name="ignoreUnmapped"></param>
+        /// <returns></returns>
+        public FieldSortBuilder IgnoreUnmapped(bool ignoreUnmapped)
+        {
+            _ignoreUnampped = ignoreUnmapped;
+            return this;
         }
 
         #region ISortBuilder Members
@@ -40,6 +53,11 @@ namespace Rubber.DSL.Sort
             if (_missing != null)
             {
                 content[_fieldName]["missing"] = new JValue(_missing);
+            }
+
+            if (_ignoreUnampped != null)
+            {
+                content[_fieldName]["ignore_unmapped"] = _ignoreUnampped;
             }
 
             return content;

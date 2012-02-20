@@ -10,9 +10,9 @@ namespace Rubber.DSL
 
         private string _tagsSchema;
 
-        private string[] _preTags;
+        private object[] _preTags;
 
-        private string[] _postTags;
+        private object[] _postTags;
 
         private string _order;
 
@@ -191,17 +191,29 @@ namespace Rubber.DSL
 
                     if(field.FragmentSize().HasValue)
                     {
-                        content.Value["fields"][field.Name()]["fragment_size"] = field.FragmentSize().Value;    
+                        var fragmentSize = field.FragmentSize();
+                        if (fragmentSize != null)
+                        {
+                            content.Value["fields"][field.Name()]["fragment_size"] = fragmentSize.Value;
+                        }
                     }
 
                     if(field.NumOfFragments().HasValue)
                     {
-                        content.Value["fields"][field.Name()]["number_of_fragments"] = field.NumOfFragments().Value;    
+                        var numOfFragments = field.NumOfFragments();
+                        if (numOfFragments != null)
+                        {
+                            content.Value["fields"][field.Name()]["number_of_fragments"] = numOfFragments.Value;
+                        }
                     }
 
                     if (field.FragmentOffset().HasValue)
                     {
-                        content.Value["fields"][field.Name()]["fragment_offset"] = field.FragmentOffset().Value;
+                        var fragmentOffset = field.FragmentOffset();
+                        if (fragmentOffset != null)
+                        {
+                            content.Value["fields"][field.Name()]["fragment_offset"] = fragmentOffset.Value;
+                        }
                     }
                 }
             }
